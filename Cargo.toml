@@ -1,0 +1,8 @@
+[package]
+name = "nvim-spotify"
+version = "0.1.0"
+authors = ["Srishan Bhattarai <srishanbhattarai@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+neovim-lib = "0.6.0"

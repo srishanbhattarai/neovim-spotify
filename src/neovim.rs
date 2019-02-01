@@ -1,8 +1,9 @@
 extern crate neovim_lib;
 
-use neovim_lib::Session;
+use neovim_lib::{Neovim, NeovimApi, Session, Value};
 use std::fs::{File, OpenOptions};
 use std::io::prelude::*;
+use std::sync::mpsc::Receiver;
 
 enum Messages {
     CurrentSong,
@@ -20,25 +21,29 @@ impl From<String> for Messages {
 
 /// Neovim is the struct to handle interactions with a running Neovim instance.
 pub struct Nvim {
-    session: Session,
     log_file: File,
 }
 
 impl Nvim {
     pub fn new() -> Nvim {
-        let session = Session::new_parent().unwrap();
         let log_file = OpenOptions::new().append(true).open("my-file").unwrap();
 
-        Nvim { session, log_file }
+        Nvim { log_file }
     }
 
     pub fn handle_events(&mut self) {
-        let receiver = self.session.start_event_loop_channel();
+        let mut session = Session::new_parent().unwrap();
+        let receiver = session.start_event_loop_channel();
+        let mut nvim = Neovim::new(session);
 
         for (event, _values) in receiver {
             match Messages::from(event.clone()) {
                 Messages::CurrentSong => {
-                    self.log_file.write_all(b"Fetching current song!").unwrap();
+                    let song = get_current_song();
+
+                    self.log_file.write_all(&song[..]).unwrap();
+                    nvim.command(&format!("echo \"{}\"", std::str::from_utf8(&song).unwrap()))
+                        .unwrap();
                 }
                 _ => {
                     let msg = format!("Unexpected RPC: {}", event);
@@ -47,4 +52,28 @@ impl Nvim {
             }
         }
     }
+}
+
+fn get_current_song() -> Vec<u8> {
+    if !cfg!(target_os = "macos") {
+        unimplemented!()
+    }
+
+    use std::process::Command;
+    let cmd = "
+tell application \"Spotify\"
+    set currentArtist to artist of current track as string
+    set currentTrack to name of current track as string
+
+    return currentArtist & \" - \" & currentTrack
+end tell
+            ";
+
+    let output = Command::new("osascript")
+        .arg("-e")
+        .arg(cmd)
+        .output()
+        .unwrap();
+
+    output.stdout
 }

@@ -1,4 +1,4 @@
-# neovim-spotify
+# neovim-spotify &middot; [![Build Status](https://travis-ci.com/srishanbhattarai/neovim-spotify.svg?token=r9ZKJZspyajhDz5EguyH&branch=master)](https://travis-ci.com/srishanbhattarai/neovim-spotify)
 Control Spotify through Neovim. (Currently only MacOS)
 
 # Installation
@@ -21,3 +21,5 @@ Refer to the following table to find supported commands.
 | `:SpotifyPause` | Pause the track, if currently playing |
 
 
+# License
+MIT

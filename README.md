@@ -19,7 +19,7 @@ Refer to the following table to find supported commands.
 | `:SpotifyPrevious` | Play previous track |
 | `:SpotifyPlay` | Play the track, if currently paused |
 | `:SpotifyPause` | Pause the track, if currently playing |
-
+| `:SpotifyLyrics` | Find the lyrics for the current track | 
 
 # License
 MIT

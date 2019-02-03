@@ -4,8 +4,9 @@ if !exists('s:spotifyjobid')
 endif
 
 " Path to the binary
-let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
-let s:bin = s:scriptdir . '/target/release/nvim-spotify'
+" let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
+" let s:bin = s:scriptdir . '/target/release/nvim-spotify'
+let s:bin = '/Users/srishanbhattarai/Documents/code/rust/nvim-spotify/target/debug/nvim-spotify'
 
 " RPC message constants
 let s:CurrentSong = 'current_song'
@@ -14,6 +15,7 @@ let s:Play = 'play'
 let s:Pause = 'pause'
 let s:Next = 'next'
 let s:Previous = 'previous'
+let s:Lyrics = 'lyrics'
 
 " Entry point
 function! s:init()
@@ -58,6 +60,7 @@ function! s:AttachRPCHandlers(jobID)
   command! -nargs=0 SpotifyPause :call s:rpc(s:Pause)
   command! -nargs=0 SpotifyNext :call s:rpc(s:Next)
   command! -nargs=0 SpotifyPrevious :call s:rpc(s:Previous)
+  command! -nargs=0 SpotifyLyrics :call s:rpc(s:Lyrics)
 endfunction
 
 " Send an RPC message to the remote process.

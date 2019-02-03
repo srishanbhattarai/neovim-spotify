@@ -2,6 +2,7 @@ extern crate neovim_lib;
 
 use neovim_lib::{Neovim, NeovimApi, Session};
 
+use crate::lyrics;
 use crate::spotify::{Spotify, SpotifyAPI};
 
 enum Messages {
@@ -11,6 +12,7 @@ enum Messages {
     Pause,
     Next,
     Previous,
+    Lyrics,
     Unknown(String),
 }
 
@@ -23,6 +25,7 @@ impl From<String> for Messages {
             "pause" => Messages::Pause,
             "next" => Messages::Next,
             "previous" => Messages::Previous,
+            "lyrics" => Messages::Lyrics,
             _ => Messages::Unknown(event),
         }
     }
@@ -36,7 +39,8 @@ pub struct EventHandler {
 
 impl EventHandler {
     pub fn new() -> EventHandler {
-        let session = Session::new_parent().unwrap();
+        let mut session = Session::new_parent().unwrap();
+        session.set_infinity_timeout();
         let nvim = Neovim::new(session);
         let spotify = Spotify::new();
 
@@ -59,27 +63,45 @@ impl EventHandler {
 
                 Messages::PlayPause => {
                     self.spotify.play_pause();
-                },
+                }
 
                 Messages::Play => {
                     self.spotify.play();
-                },
+                }
 
                 Messages::Pause => {
                     self.spotify.pause();
-                },
+                }
 
                 Messages::Next => {
                     self.spotify.next();
-                },
+                }
 
                 Messages::Previous => {
                     self.spotify.previous();
-                },
+                }
+
+                Messages::Lyrics => {
+                    let song = self.spotify.current_song();
+                    let mut parts = song.split('-');
+                    let (artist, song) =
+                        (parts.next().unwrap().trim(), parts.next().unwrap().trim());
+
+                    let lyrics = lyrics::find_lyrics(artist, song).unwrap();
+                    let lyrics_vec = lyrics.split('\n').map(|s| s.to_owned()).collect();
+
+                    self.nvim.command("vsplit new").unwrap();
+                    let buf = self.nvim.get_current_buf().unwrap();
+                    let buf_len = buf.line_count(&mut self.nvim).unwrap();
+                    buf.set_lines(&mut self.nvim, 0, buf_len, true, lyrics_vec)
+                        .unwrap();
+                }
 
                 // Handle any "Unknown" messages.
                 Messages::Unknown(ev) => {
-                    self.nvim.command(&format!("echoerr \"{}\" Unknown command", ev)).unwrap();
+                    self.nvim
+                        .command(&format!("echoerr \"{}\" Unknown command", ev))
+                        .unwrap();
                 }
             }
         }

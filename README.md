@@ -2,11 +2,9 @@
 Control Spotify through Neovim. (Currently only MacOS)
 
 # Installation
-This plugin has a dependency on Rust's pacakge manager, Cargo. There are plans to remove this limitation by providing pre-built binaries.
-
 Use your preferred plugin manager. For example, `vim-plug`:
 ```vim
-Plug 'srishanbhattarai/neovim-spotify', { 'do': 'cargo build --release' }
+Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh' }
 ```
 
 # Usage

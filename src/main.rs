@@ -1,5 +1,6 @@
 extern crate neovim_lib;
 
+mod lyrics;
 mod neovim;
 mod spotify;
 

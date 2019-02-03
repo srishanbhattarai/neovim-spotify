@@ -21,3 +21,5 @@ Refer to the following table to find supported commands.
 | `:SpotifyPause` | Pause the track, if currently playing |
 
 
+# License
+MIT

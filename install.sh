@@ -5,16 +5,21 @@ set -o errexit
 version=v0.1.0
 name=nvim-spotify
 
-arch=$(uname -sm)
-case "${arch}" in
-    "Darwin") fetch_prebuilt_binary $name-$version-darwin ;;
-    *) echo "No pre-built binary available for ${arch}."; cargo_build ;;
-esac
+cargo_build() {
+    if command -v cargo > /dev/null; then
+        echo "Trying to build locally using Cargo.."
+        cargo build --release
+    else
+        echo "Could not build binary. Your installation might be corrupt."
+        return 1
+    fi
+}
 
 download() {
     command -v curl > /dev/null && \
         curl --fail --location "$1" --output target/release/$name
 }
+
 
 fetch_prebuilt_binary() {
     echo "Downloading binary.."
@@ -29,12 +34,9 @@ fetch_prebuilt_binary() {
     fi
 }
 
-cargo_build() {
-    if command -v cargo > /dev/null; then
-        echo "Build locally using Cargo ..."
-        cargo build --release
-    else
-        echo "Could not build binary. Your installation might be corrupt."
-        return 1
-    fi
-}
+arch=$(uname)
+case "${arch}" in
+    "Darwin") fetch_prebuilt_binary $name-$version-darwin ;;
+    *) echo "No pre-built binary available for ${arch}."; cargo_build ;;
+esac
+

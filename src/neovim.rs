@@ -54,7 +54,7 @@ impl EventHandler {
         let receiver = self.nvim.session.start_event_loop_channel();
 
         for (event, _values) in receiver {
-            match Messages::from(event.clone()) {
+            match Messages::from(event) {
                 Messages::CurrentSong => {
                     let song = self.spotify.current_song();
 

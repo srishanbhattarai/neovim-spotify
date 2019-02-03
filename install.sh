@@ -3,7 +3,7 @@
 set -o errexit
 
 version=v0.1.0
-name=nvim-spotify
+name=neovim-spotify
 
 cargo_build() {
     if command -v cargo > /dev/null; then
@@ -17,17 +17,18 @@ cargo_build() {
 
 download() {
     command -v curl > /dev/null && \
-        curl --fail --location "$1" --output target/release/$name
+        curl --fail --location "$1" --output target/release/nvim-spotify
 }
 
 
 fetch_prebuilt_binary() {
     echo "Downloading binary.."
-    url=https://github.com/srishanbhattarai/${name}/releases/download/$version/${1}
+    url=https://github.com/srishanbhattarai/$name/releases/download/$version/${1}
+    echo $url
     mkdir -p target/release
 
     if (download "$url"); then
-        chmod a+x target/release/$name
+        chmod a+x target/release/nvim-spotify
         return
     else
         cargo_build || echo "Prebuilt binaries are not ready for this platform."

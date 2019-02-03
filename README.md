@@ -1,4 +1,4 @@
-# neovim-spotify
+# neovim-spotify &middot; [![Build Status](https://travis-ci.com/srishanbhattarai/neovim-spotify.svg?token=r9ZKJZspyajhDz5EguyH&branch=master)](https://travis-ci.com/srishanbhattarai/neovim-spotify)
 Control Spotify through Neovim. (Currently only MacOS)
 
 # Installation

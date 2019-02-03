@@ -87,14 +87,23 @@ impl EventHandler {
                     let (artist, song) =
                         (parts.next().unwrap().trim(), parts.next().unwrap().trim());
 
-                    let lyrics = lyrics::find_lyrics(artist, song).unwrap();
-                    let lyrics_vec = lyrics.split('\n').map(|s| s.to_owned()).collect();
+                    let lyrics = lyrics::find_lyrics(artist, song);
+                    match lyrics {
+                        Some(lyrics) => {
+                            let lyrics_vec = lyrics.split('\n').map(|s| s.to_owned()).collect();
 
-                    self.nvim.command("vsplit new").unwrap();
-                    let buf = self.nvim.get_current_buf().unwrap();
-                    let buf_len = buf.line_count(&mut self.nvim).unwrap();
-                    buf.set_lines(&mut self.nvim, 0, buf_len, true, lyrics_vec)
-                        .unwrap();
+                            self.nvim.command("vsplit new").unwrap();
+                            let buf = self.nvim.get_current_buf().unwrap();
+                            let buf_len = buf.line_count(&mut self.nvim).unwrap();
+                            buf.set_lines(&mut self.nvim, 0, buf_len, true, lyrics_vec)
+                                .unwrap();
+                        }
+                        None => {
+                            self.nvim
+                                .command(&format!("echo \"Could not find lyrics\""))
+                                .unwrap();
+                        }
+                    }
                 }
 
                 // Handle any "Unknown" messages.

@@ -4,9 +4,8 @@ if !exists('s:spotifyjobid')
 endif
 
 " Path to the binary
-" let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
-" let s:bin = s:scriptdir . '/target/release/nvim-spotify'
-let s:bin = '/Users/srishanbhattarai/Documents/code/rust/nvim-spotify/target/debug/nvim-spotify'
+let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
+let s:bin = s:scriptdir . '/target/release/nvim-spotify'
 
 " RPC message constants
 let s:CurrentSong = 'current_song'

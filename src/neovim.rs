@@ -97,6 +97,7 @@ impl EventHandler {
                             let buf_len = buf.line_count(&mut self.nvim).unwrap();
                             buf.set_lines(&mut self.nvim, 0, buf_len, true, lyrics_vec)
                                 .unwrap();
+                            self.nvim.command("setlocal nomodifiable").unwrap();
                         }
                         None => {
                             self.nvim

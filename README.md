@@ -23,6 +23,7 @@ Refer to the following table to find supported commands.
 
 # TODOs
 * Better error handling - get rid of `unwrap()`s everywhere.
+* Non-blocking strategy to handle RPC requests.
 
 # License
 MIT

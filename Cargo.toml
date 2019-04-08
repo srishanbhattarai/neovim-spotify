@@ -5,6 +5,6 @@ authors = ["Srishan Bhattarai <srishanbhattarai@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-reqwest = "0.9.9"
+reqwest = "0.9.13"
 neovim-lib = "0.6.0"
 soup = "0.3.0"

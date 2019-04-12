@@ -531,7 +531,7 @@ dependencies = [
 
 [[package]]
 name = "neovim-lib"
-version = "0.6.0"
+version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -588,7 +588,7 @@ dependencies = [
 name = "nvim-spotify"
 version = "0.1.0"
 dependencies = [
- "neovim-lib 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "neovim-lib 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "reqwest 0.9.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "soup 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -1448,7 +1448,7 @@ dependencies = [
 "checksum mio 0.6.16 (registry+https://github.com/rust-lang/crates.io-index)" = "71646331f2619b1026cc302f87a2b8b648d5c6dd6937846a16cc8ce0f347f432"
 "checksum miow 0.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "8c1f2f3b1cf331de6896aabf6e9d55dca90356cc9960cca7eaaf408a355ae919"
 "checksum native-tls 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)" = "ff8e08de0070bbf4c31f452ea2a70db092f36f6f2e4d897adf5674477d488fb2"
-"checksum neovim-lib 0.6.0 (registry+https://github.com/rust-lang/crates.io-index)" = "5a6df2e6e846e5dbd098b73ba1a39d1f2ff654bb7cc33521fc569aa0da54daaa"
+"checksum neovim-lib 0.6.1 (registry+https://github.com/rust-lang/crates.io-index)" = "d6a8f5a1e1be160ce2b669c2c495a34ade6f3a525d4afafd7370c1792070f587"
 "checksum net2 0.2.33 (registry+https://github.com/rust-lang/crates.io-index)" = "42550d9fb7b6684a6d404d9fa7250c2eb2646df731d1c06afc06dcee9e1bcf88"
 "checksum new_debug_unreachable 1.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "0cdc457076c78ab54d5e0d6fa7c47981757f1e34dc39ff92787f217dede586c4"
 "checksum nodrop 0.1.13 (registry+https://github.com/rust-lang/crates.io-index)" = "2f9667ddcc6cc8a43afc9b7917599d7216aa09c463919ea32c59ed6cac8bc945"

@@ -1,9 +1,6 @@
-extern crate neovim_lib;
-
-use neovim_lib::{Neovim, NeovimApi, Session};
-
 use crate::lyrics;
-use crate::spotify::{Spotify, SpotifyAPI};
+use crate::spotify::{Spotify, SpotifyApi};
+use neovim_lib::{Neovim, NeovimApi, Session};
 
 enum Messages {
     CurrentSong,
@@ -34,7 +31,7 @@ impl From<String> for Messages {
 /// EventHandler receives RPC requests, and maps them to right Spotify and Neovim commands.
 pub struct EventHandler {
     nvim: Neovim,
-    spotify: Box<SpotifyAPI>,
+    spotify: Box<dyn SpotifyApi>,
 }
 
 impl EventHandler {

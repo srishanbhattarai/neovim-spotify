@@ -1,4 +1,4 @@
-pub trait SpotifyAPI {
+pub trait SpotifyApi {
     fn current_song(&self) -> String;
     fn play(&self);
     fn pause(&self);
@@ -10,7 +10,7 @@ pub trait SpotifyAPI {
 pub struct Spotify;
 
 impl Spotify {
-    pub fn new() -> impl SpotifyAPI {
+    pub fn new() -> impl SpotifyApi {
         // TODO: Other platforms
         if !cfg!(target_os = "macos") {
             unimplemented!()
@@ -28,7 +28,7 @@ impl SpotifyOSX {
     }
 }
 
-impl SpotifyAPI for SpotifyOSX {
+impl SpotifyApi for SpotifyOSX {
     // Retrieve current song.
     fn current_song(&self) -> String {
         let cmd = "

@@ -1,6 +1,3 @@
-extern crate reqwest;
-extern crate soup;
-
 use soup::prelude::*;
 
 pub fn find_lyrics(artist: &str, song: &str) -> Option<String> {

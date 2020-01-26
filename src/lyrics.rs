@@ -6,7 +6,7 @@ pub fn find_lyrics(artist: &str, song: &str) -> Option<String> {
     let ident = format!("{}-{}-lyrics", artist, song);
     let url = format!("https://www.genius.com/{}", ident).replace("'", "");
 
-    let resp = reqwest::get(&url).unwrap();
+    let resp = reqwest::blocking::get(&url).unwrap();
     let soup = Soup::from_reader(resp).unwrap();
     let lyrics = soup.tag("p").find().unwrap().text();
 

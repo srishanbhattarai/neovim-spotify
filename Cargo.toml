@@ -7,4 +7,4 @@ edition = "2018"
 [dependencies]
 reqwest = { version = "0.10.2", features = ["blocking"] }
 neovim-lib = "0.6.1"
-soup = "0.4.1"
+soup = "0.5.0"

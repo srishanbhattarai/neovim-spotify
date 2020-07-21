@@ -1,38 +1,16 @@
-pub trait SpotifyApi {
-    fn current_song(&self) -> String;
-    fn play(&self);
-    fn pause(&self);
-    fn play_pause(&self);
-    fn next(&self);
-    fn previous(&self);
-}
+#[cfg(target_os = "macos")]
+pub(crate) struct Spotify;
 
-pub struct Spotify;
-
+#[cfg(target_os = "macos")]
 impl Spotify {
-    pub fn new() -> impl SpotifyApi {
-        // TODO: Other platforms
-        if !cfg!(target_os = "macos") {
-            unimplemented!()
-        }
-
-        SpotifyOSX::new()
+    pub(crate) fn new() -> Self {
+        Spotify {}
     }
-}
 
-pub struct SpotifyOSX;
-
-impl SpotifyOSX {
-    pub fn new() -> SpotifyOSX {
-        SpotifyOSX {}
-    }
-}
-
-impl SpotifyApi for SpotifyOSX {
-    // Retrieve current song.
-    fn current_song(&self) -> String {
+    // Retrieve current song. Returns (artist, song) tuple.
+    pub(crate) fn current_song(&self) -> (String, String) {
         let cmd = "
-            tell application \"Spotify\"
+        tell application \"Spotify\"
     set currentArtist to artist of current track as string
     set currentTrack to name of current track as string
 
@@ -40,41 +18,48 @@ impl SpotifyApi for SpotifyOSX {
 end tell
             ";
 
-        run_osascript(cmd)
+        let result = run_osascript(cmd);
+        let mut parts = result.split('-');
+
+        // The osascript above makes it so that the unwraps are ok
+        let (artist, song) = (parts.next().unwrap().trim(), parts.next().unwrap().trim());
+
+        return (artist.to_owned(), song.to_owned());
     }
 
     // Play if paused, and vice versa.
-    fn play_pause(&self) {
+    pub(crate) fn play_pause(&self) {
         let cmd = "tell application \"Spotify\" to playpause";
         run_osascript(cmd);
     }
 
     // Pause if playing.
-    fn pause(&self) {
+    pub(crate) fn pause(&self) {
         let cmd = "tell application \"Spotify\" to pause";
         run_osascript(cmd);
     }
 
     // Play if paused.
-    fn play(&self) {
+    pub(crate) fn play(&self) {
         let cmd = "tell application \"Spotify\" to play";
         run_osascript(cmd);
     }
 
     // Change to next track.
-    fn next(&self) {
+    pub(crate) fn next(&self) {
         let cmd = "tell application \"Spotify\" to next track";
         run_osascript(cmd);
     }
 
     // Change to next track.
-    fn previous(&self) {
+    pub(crate) fn previous(&self) {
         let cmd = "tell application \"Spotify\" to previous track";
         run_osascript(cmd);
     }
 }
 
 // Run an AppleScript command.
+#[cfg(target_os = "macos")]
 fn run_osascript(script: &str) -> String {
     use std::process::Command;
 
@@ -82,7 +67,9 @@ fn run_osascript(script: &str) -> String {
         .arg("-e")
         .arg(script)
         .output()
-        .unwrap();
+        .expect("Could not run osascript cmd");
 
-    std::str::from_utf8(&output.stdout[..]).unwrap().to_owned()
+    std::str::from_utf8(&output.stdout[..])
+        .expect("Could not obtain stdout from osascript output")
+        .to_owned()
 }

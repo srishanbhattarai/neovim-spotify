@@ -1,5 +1,5 @@
 use crate::lyrics;
-use crate::spotify::{Spotify, SpotifyApi};
+use crate::spotify::Spotify;
 use neovim_lib::{Neovim, NeovimApi, Session};
 
 enum Messages {
@@ -31,20 +31,18 @@ impl From<String> for Messages {
 /// EventHandler receives RPC requests, and maps them to right Spotify and Neovim commands.
 pub struct EventHandler {
     nvim: Neovim,
-    spotify: Box<dyn SpotifyApi>,
+    spotify: Spotify,
 }
 
 impl EventHandler {
     pub fn new() -> EventHandler {
+        // unwrap safe because new_parent always returns Ok
         let mut session = Session::new_parent().unwrap();
         session.set_infinity_timeout();
         let nvim = Neovim::new(session);
         let spotify = Spotify::new();
 
-        EventHandler {
-            nvim,
-            spotify: Box::new(spotify),
-        }
+        EventHandler { nvim, spotify }
     }
 
     pub fn handle_events(&mut self) {
@@ -53,9 +51,15 @@ impl EventHandler {
         for (event, _values) in receiver {
             match Messages::from(event) {
                 Messages::CurrentSong => {
-                    let song = self.spotify.current_song();
+                    let (artist, song) = self.spotify.current_song();
 
-                    self.nvim.command(&format!("echo \"{}\"", song)).unwrap();
+                    let song_name = format!("{} - {}", artist, song);
+
+                    // commands should never fail when session spawned through parent
+                    // if it does, it's probably best that it is fatal.
+                    self.nvim
+                        .command(&format!("echo \"{}\"", song_name))
+                        .unwrap();
                 }
 
                 Messages::PlayPause => {
@@ -79,17 +83,16 @@ impl EventHandler {
                 }
 
                 Messages::Lyrics => {
-                    let song = self.spotify.current_song();
-                    let mut parts = song.split('-');
-                    let (artist, song) =
-                        (parts.next().unwrap().trim(), parts.next().unwrap().trim());
+                    let (artist, song) = self.spotify.current_song();
+                    let lyrics = lyrics::find_lyrics(&artist, &song);
 
-                    let lyrics = lyrics::find_lyrics(artist, song);
                     match lyrics {
                         Some(lyrics) => {
                             let lyrics_vec = lyrics.split('\n').map(|s| s.to_owned()).collect();
 
-                            self.nvim.command("vsplit new").unwrap();
+                            // If the following commands cannot be executed with a parent
+                            // neovim instance, it probably makes sense to die
+                            self.nvim.command("vsplit lyrics.txt").unwrap();
                             let buf = self.nvim.get_current_buf().unwrap();
                             let buf_len = buf.line_count(&mut self.nvim).unwrap();
                             buf.set_lines(&mut self.nvim, 0, buf_len, true, lyrics_vec)

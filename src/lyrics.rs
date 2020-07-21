@@ -14,7 +14,7 @@ pub fn find_lyrics(artist: &str, song: &str) -> Option<String> {
         return None;
     }
 
-    let lyrics = format!("{} - {}\n {}", artist, song, lyrics);
+    let lyrics = format!("{} - {}\n{}", artist, song, lyrics);
 
     Some(lyrics.to_owned())
 }

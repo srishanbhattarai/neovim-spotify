@@ -7,9 +7,9 @@ If you want to learn how to create Neovim plugins with Rust, read the accompanyi
 Use your preferred plugin manager. Run `install.sh` as a post-installation step, which will download and install
 the pre-built MacOS binary.
 
-For example, `vim-plug`:
+For example, for `vim-plug` with lazy loading enabled, you can put in the following line:
 ```vim
-Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh' }
+Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh', 'on': ['Spotify'] }
 ```
 
 # Usage

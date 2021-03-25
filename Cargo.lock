@@ -1120,9 +1120,9 @@ dependencies = [
 
 [[package]]
 name = "soup"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee42b8c117ede655c8ffe18dafcd239b23eb3bb7a2c71b1f01237587736f139f"
+checksum = "aa5a5d21523f4b7a17ad04eaf534360fc908879f53f3341918cbec2fee9cfe14"
 dependencies = [
  "html5ever",
  "regex",

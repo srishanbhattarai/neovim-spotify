@@ -29,5 +29,5 @@ fn it_works() {
         find_lyrics("Led Zeppelin", "Babe I'm Gonna Leave You").is_some(),
         true
     );
-    assert_eq!(find_lyrics("X", "Y").is_none(), true);
+    assert_eq!(find_lyrics("asoeuthao", "aoeunsthao").is_none(), true);
 }

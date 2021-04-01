@@ -1,20 +1,20 @@
 use crate::lib;
 #[cfg(target_os = "macos")]
-pub(crate) struct Spotify;
+pub(crate) struct AppleMusic;
 
 #[cfg(target_os = "macos")]
-impl Spotify {}
+impl AppleMusic {}
 
 #[cfg(target_os = "macos")]
-impl Spotify {
+impl AppleMusic {
     pub(crate) fn new() -> Self {
-        Spotify {}
+        AppleMusic {}
     }
 
     // Retrieve current song. Returns (artist, song) tuple.
     pub(crate) fn current_song(&self) -> (String, String) {
         let cmd = "
-        tell application \"Spotify\"
+        tell application \"Music\"
     set currentArtist to artist of current track as string
     set currentTrack to name of current track as string
 
@@ -33,31 +33,31 @@ end tell
 
     // Play if paused, and vice versa.
     pub(crate) fn play_pause(&self) {
-        let cmd = "tell application \"Spotify\" to playpause";
+        let cmd = "tell application \"Music\" to playpause";
         lib::run_osascript(cmd);
     }
 
     // Pause if playing.
     pub(crate) fn pause(&self) {
-        let cmd = "tell application \"Spotify\" to pause";
+        let cmd = "tell application \"Music\" to pause";
         lib::run_osascript(cmd);
     }
 
     // Play if paused.
     pub(crate) fn play(&self) {
-        let cmd = "tell application \"Spotify\" to play";
+        let cmd = "tell application \"Music\" to play";
         lib::run_osascript(cmd);
     }
 
     // Change to next track.
     pub(crate) fn next(&self) {
-        let cmd = "tell application \"Spotify\" to next track";
+        let cmd = "tell application \"Music\" to next track";
         lib::run_osascript(cmd);
     }
 
     // Change to next track.
     pub(crate) fn previous(&self) {
-        let cmd = "tell application \"Spotify\" to previous track";
+        let cmd = "tell application \"Music\" to previous track";
         lib::run_osascript(cmd);
     }
 }

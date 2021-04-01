@@ -8,13 +8,21 @@ let s:scriptdir = resolve(expand('<sfile>:p:h') . '/..')
 let s:bin = s:scriptdir . '/target/release/nvim-spotify'
 
 " RPC message constants
-let s:CurrentSong = 'current_song'
-let s:PlayPause = 'play_pause'
-let s:Play = 'play'
-let s:Pause = 'pause'
-let s:Next = 'next'
-let s:Previous = 'previous'
-let s:Lyrics = 'lyrics'
+let s:SpotifyCurrentSong = 'spotify_current_song'
+let s:SpotifyPlayPause = 'spotify_play_pause'
+let s:SpotifyPlay = 'spotify_play'
+let s:SpotifyPause = 'spotify_pause'
+let s:SpotifyNext = 'spotify_next'
+let s:SpotifyPrevious = 'spotify_previous'
+let s:SpotifyLyrics = 'spotify_lyrics'
+
+let s:MusicCurrentSong = 'applemusic_current_song'
+let s:MusicPlayPause = 'applemusic_play_pause'
+let s:MusicPlay = 'applemusic_play'
+let s:MusicPause = 'applemusic_pause'
+let s:MusicNext = 'applemusic_next'
+let s:MusicPrevious = 'applemusic_previous'
+let s:MusicLyrics = 'applemusic_lyrics'
 
 " Entry point
 function! s:init()
@@ -53,13 +61,21 @@ endfunction
 
 " Associate commands with their RPC invocations
 function! s:AttachRPCHandlers(jobID)
-  command! -nargs=0 SpotifyCurrentSong :call s:rpc(s:CurrentSong)
-  command! -nargs=0 SpotifyPlayPause :call s:rpc(s:PlayPause)
-  command! -nargs=0 SpotifyPlay :call s:rpc(s:Play)
-  command! -nargs=0 SpotifyPause :call s:rpc(s:Pause)
-  command! -nargs=0 SpotifyNext :call s:rpc(s:Next)
-  command! -nargs=0 SpotifyPrevious :call s:rpc(s:Previous)
-  command! -nargs=0 SpotifyLyrics :call s:rpc(s:Lyrics)
+  command! -nargs=0 SpotifyCurrentSong :call s:rpc(s:SpotifyCurrentSong)
+  command! -nargs=0 SpotifyPlayPause :call s:rpc(s:SpotifyPlayPause)
+  command! -nargs=0 SpotifyPlay :call s:rpc(s:SpotifyPlay)
+  command! -nargs=0 SpotifyPause :call s:rpc(s:SpotifyPause)
+  command! -nargs=0 SpotifyNext :call s:rpc(s:SpotifyNext)
+  command! -nargs=0 SpotifyPrevious :call s:rpc(s:SpotifyPrevious)
+  command! -nargs=0 SpotifyLyrics :call s:rpc(s:SpotifyLyrics)
+
+  command! -nargs=0 MusicCurrentSong :call s:rpc(s:MusicCurrentSong)
+  command! -nargs=0 MusicPlayPause :call s:rpc(s:MusicPlayPause)
+  command! -nargs=0 MusicPlay :call s:rpc(s:MusicPlay)
+  command! -nargs=0 MusicPause :call s:rpc(s:MusicPause)
+  command! -nargs=0 MusicNext :call s:rpc(s:MusicNext)
+  command! -nargs=0 MusicPrevious :call s:rpc(s:MusicPrevious)
+  command! -nargs=0 MusicLyrics :call s:rpc(s:MusicLyrics)
 endfunction
 
 " Send an RPC message to the remote process.

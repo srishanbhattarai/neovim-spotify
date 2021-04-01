@@ -15,14 +15,20 @@ Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh', 'on': ['Spoti
 # Usage
 Refer to the following table to find supported commands.
 
-| Command  | Description |
-|----------|-------------|
+| Command               | Description                              |
+|-----------------------|------------------------------------------|
 | `:SpotifyCurrentSong` | Echo the current song playing in Spotify |
-| `:SpotifyNext` | Play next track |
-| `:SpotifyPrevious` | Play previous track |
-| `:SpotifyPlay` | Play the track, if currently paused |
-| `:SpotifyPause` | Pause the track, if currently playing |
-| `:SpotifyLyrics` | Find the lyrics for the current track | 
+| `:SpotifyNext`        | Play next track                          |
+| `:SpotifyPrevious`    | Play previous track                      |
+| `:SpotifyPlay`        | Play the track, if currently paused      |
+| `:SpotifyPause`       | Pause the track, if currently playing    |
+| `:SpotifyLyrics`      | Find the lyrics for the current track    |
+| `:MusicCurrentSong`   | Echo the current song playing in Spotify |
+| `:MusicNext`          | Play next track                          |
+| `:MusicPrevious`      | Play previous track                      |
+| `:MusicPlay`          | Play the track, if currently paused      |
+| `:MusicPause`         | Pause the track, if currently playing    |
+| `:MusicLyrics`        | Find the lyrics for the current track    |
 
 # License
 MIT

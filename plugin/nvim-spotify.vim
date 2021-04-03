@@ -16,13 +16,13 @@ let s:SpotifyNext = 'spotify_next'
 let s:SpotifyPrevious = 'spotify_previous'
 let s:SpotifyLyrics = 'spotify_lyrics'
 
-let s:MusicCurrentSong = 'applemusic_current_song'
-let s:MusicPlayPause = 'applemusic_play_pause'
-let s:MusicPlay = 'applemusic_play'
-let s:MusicPause = 'applemusic_pause'
-let s:MusicNext = 'applemusic_next'
-let s:MusicPrevious = 'applemusic_previous'
-let s:MusicLyrics = 'applemusic_lyrics'
+let s:AppleMusicCurrentSong = 'applemusic_current_song'
+let s:AppleMusicPlayPause = 'applemusic_play_pause'
+let s:AppleMusicPlay = 'applemusic_play'
+let s:AppleMusicPause = 'applemusic_pause'
+let s:AppleMusicNext = 'applemusic_next'
+let s:AppleMusicPrevious = 'applemusic_previous'
+let s:AppleMusicLyrics = 'applemusic_lyrics'
 
 " Entry point
 function! s:init()
@@ -69,13 +69,13 @@ function! s:AttachRPCHandlers(jobID)
   command! -nargs=0 SpotifyPrevious :call s:rpc(s:SpotifyPrevious)
   command! -nargs=0 SpotifyLyrics :call s:rpc(s:SpotifyLyrics)
 
-  command! -nargs=0 MusicCurrentSong :call s:rpc(s:MusicCurrentSong)
-  command! -nargs=0 MusicPlayPause :call s:rpc(s:MusicPlayPause)
-  command! -nargs=0 MusicPlay :call s:rpc(s:MusicPlay)
-  command! -nargs=0 MusicPause :call s:rpc(s:MusicPause)
-  command! -nargs=0 MusicNext :call s:rpc(s:MusicNext)
-  command! -nargs=0 MusicPrevious :call s:rpc(s:MusicPrevious)
-  command! -nargs=0 MusicLyrics :call s:rpc(s:MusicLyrics)
+  command! -nargs=0 AppleMusicCurrentSong :call s:rpc(s:MusicCurrentSong)
+  command! -nargs=0 AppleMusicPlayPause :call s:rpc(s:MusicPlayPause)
+  command! -nargs=0 AppleMusicPlay :call s:rpc(s:MusicPlay)
+  command! -nargs=0 AppleMusicPause :call s:rpc(s:MusicPause)
+  command! -nargs=0 AppleMusicNext :call s:rpc(s:MusicNext)
+  command! -nargs=0 AppleMusicPrevious :call s:rpc(s:MusicPrevious)
+  command! -nargs=0 AppleMusicLyrics :call s:rpc(s:MusicLyrics)
 endfunction
 
 " Send an RPC message to the remote process.

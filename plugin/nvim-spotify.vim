@@ -69,6 +69,7 @@ function! s:AttachRPCHandlers(jobID)
   command! -nargs=0 SpotifyPrevious :call s:rpc(s:SpotifyPrevious)
   command! -nargs=0 SpotifyLyrics :call s:rpc(s:SpotifyLyrics)
 
+
   command! -nargs=0 AppleMusicCurrentSong :call s:rpc(s:AppleMusicCurrentSong)
   command! -nargs=0 AppleMusicPlayPause :call s:rpc(s:AppleMusicPlayPause)
   command! -nargs=0 AppleMusicPlay :call s:rpc(s:AppleMusicPlay)

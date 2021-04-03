@@ -11,6 +11,8 @@ For example, for `vim-plug`, you can put in the following line into your `.vimrc
 Plug 'srishanbhattarai/neovim-spotify', { 'do': 'bash install.sh' }
 ```
 
+Note: When updating this plugin, please restart Vim before runnning the commands to make the plugin use the updated binaries.
+
 # Usage
 Refer to the following table to find supported commands.
 

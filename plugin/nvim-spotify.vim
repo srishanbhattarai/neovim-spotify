@@ -69,13 +69,13 @@ function! s:AttachRPCHandlers(jobID)
   command! -nargs=0 SpotifyPrevious :call s:rpc(s:SpotifyPrevious)
   command! -nargs=0 SpotifyLyrics :call s:rpc(s:SpotifyLyrics)
 
-  command! -nargs=0 AppleMusicCurrentSong :call s:rpc(s:MusicCurrentSong)
-  command! -nargs=0 AppleMusicPlayPause :call s:rpc(s:MusicPlayPause)
-  command! -nargs=0 AppleMusicPlay :call s:rpc(s:MusicPlay)
-  command! -nargs=0 AppleMusicPause :call s:rpc(s:MusicPause)
-  command! -nargs=0 AppleMusicNext :call s:rpc(s:MusicNext)
-  command! -nargs=0 AppleMusicPrevious :call s:rpc(s:MusicPrevious)
-  command! -nargs=0 AppleMusicLyrics :call s:rpc(s:MusicLyrics)
+  command! -nargs=0 AppleMusicCurrentSong :call s:rpc(s:AppleMusicCurrentSong)
+  command! -nargs=0 AppleMusicPlayPause :call s:rpc(s:AppleMusicPlayPause)
+  command! -nargs=0 AppleMusicPlay :call s:rpc(s:AppleMusicPlay)
+  command! -nargs=0 AppleMusicPause :call s:rpc(s:AppleMusicPause)
+  command! -nargs=0 AppleMusicNext :call s:rpc(s:AppleMusicNext)
+  command! -nargs=0 AppleMusicPrevious :call s:rpc(s:AppleMusicPrevious)
+  command! -nargs=0 AppleMusicLyrics :call s:rpc(s:AppleMusicLyrics)
 endfunction
 
 " Send an RPC message to the remote process.
